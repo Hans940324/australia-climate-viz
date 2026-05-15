@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 460,
+  "height": 460,
+  "background": "#fafaf7",
+  "data": {"url": "../data/melb_weather_types.csv"},
+  "encoding": {
+    "theta": {"field": "days", "type": "quantitative", "stack": true},
+    "color": {
+      "field": "weather",
+      "type": "nominal",
+      "sort": ["Sunny","Partly cloudy","Overcast","Rainy"],
+      "scale": {
+        "domain": ["Sunny","Partly cloudy","Overcast","Rainy"],
+        "range": ["#f4d35e","#e0b96b","#9aa5b1","#2e7fb8"]
+      },
+      "legend": {"title": null, "orient": "right", "labelFontSize": 13, "symbolSize": 200, "labelLimit": 200}
+    },
+    "order": {
+      "field": "order",
+      "type": "quantitative"
+    }
+  },
+  "transform": [
+    {"calculate": "datum.weather === 'Sunny' ? 1 : datum.weather === 'Partly cloudy' ? 2 : datum.weather === 'Overcast' ? 3 : 4", "as": "order"},
+    {"calculate": "datum.pct + '%|' + datum.days + ' days'", "as": "combo"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "arc", "innerRadius": 110, "outerRadius": 200, "stroke": "#fafaf7", "strokeWidth": 3}
+    },
+    {
+      "mark": {"type": "text", "radius": 155, "fontSize": 18, "fontWeight": "bold", "lineBreak": "|", "lineHeight": 16, "align": "center", "baseline": "middle"},
+      "encoding": {
+        "text": {"field": "combo", "type": "nominal"},
+        "color": {"value": "#1a1a1a"}
+      }
+    }
+  ],
+  "view": {"stroke": null},
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif"
+  }
+}

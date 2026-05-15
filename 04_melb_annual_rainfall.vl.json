@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 360,
+  "background": "#fafaf7",
+  "data": {"url": "../data/melb_annual_rainfall.csv"},
+  "transform": [
+    {"calculate": "656.3", "as": "mean_line"},
+    {"calculate": "datum.rain_total - 656.3", "as": "anomaly"},
+    {"calculate": "datum.anomaly >= 0 ? datum.rain_total : 656.3", "as": "wet_top"},
+    {"calculate": "datum.anomaly < 0 ? datum.rain_total : 656.3", "as": "dry_bot"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year",
+      "scale": {"domain": [2005, 2024], "nice": false},
+      "axis": {"format": "d", "tickCount": 10, "labelFontSize": 11, "titleFontSize": 12}
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "area", "color": "#d7884a", "opacity": 0.75, "interpolate": "monotone"},
+      "encoding": {
+        "y": {"field": "mean_line", "type": "quantitative", "scale": {"domain": [0, 1200], "nice": false}, "title": "Annual rainfall (mm)", "axis": {"labelFontSize": 11, "titleFontSize": 12}},
+        "y2": {"field": "dry_bot"}
+      }
+    },
+    {
+      "mark": {"type": "area", "color": "#2e7fb8", "opacity": 0.65, "interpolate": "monotone"},
+      "encoding": {
+        "y": {"field": "wet_top", "type": "quantitative"},
+        "y2": {"field": "mean_line"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "color": "#444", "strokeDash": [4, 4], "size": 1.2},
+      "encoding": {"y": {"datum": 656.3}}
+    },
+    {
+      "mark": {"type": "line", "color": "#1a1a1a", "size": 1.8, "interpolate": "monotone"},
+      "encoding": {"y": {"field": "rain_total", "type": "quantitative"}}
+    },
+    {
+      "mark": {"type": "point", "color": "#1a1a1a", "filled": true, "size": 60},
+      "encoding": {
+        "y": {"field": "rain_total", "type": "quantitative"},
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "format": "d"},
+          {"field": "rain_total", "type": "quantitative", "title": "Annual rainfall (mm)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year == 2006 || datum.year == 2022"}],
+      "mark": {"type": "point", "size": 220, "color": "#7f1d1d", "strokeWidth": 2.5, "fill": "#fafaf7"},
+      "encoding": {"y": {"field": "rain_total", "type": "quantitative"}}
+    },
+    {
+      "data": {
+        "values": [
+          {"x": 2006, "y": 270, "text": "2006: driest (356 mm) — Millennium Drought peak"},
+          {"x": 2022, "y": 1180, "text": "2022: wettest (1,124 mm) — La Niña flood year"},
+          {"x": 2018, "y": 700, "text": "20-yr mean 656 mm"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11, "fontStyle": "italic", "color": "#222", "align": "center"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"grid": true, "gridColor": "#eee", "domainColor": "#888", "tickColor": "#888"}
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 360,
+  "background": "#fafaf7",
+  "data": {"url": "../data/melb_hot_days.csv"},
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year",
+      "scale": {"domain": [2004.4, 2024.6], "nice": false},
+      "axis": {"format": "d", "tickCount": 10, "labelFontSize": 11, "titleFontSize": 12}
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#aaa", "size": 1},
+      "encoding": {
+        "y": {
+          "field": "days_35plus",
+          "type": "quantitative",
+          "title": "Days with daily maximum ≥ 35 °C",
+          "scale": {"domain": [0, 19], "nice": false},
+          "axis": {"labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#eee"}
+        },
+        "y2": {"datum": 0}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 220, "color": "#ee964b", "stroke": "#7f1d1d", "strokeWidth": 1.2},
+      "encoding": {
+        "y": {"field": "days_35plus", "type": "quantitative"},
+        "tooltip": [
+          {"field": "year", "type": "quantitative", "format": "d"},
+          {"field": "days_35plus", "type": "quantitative", "title": "Days ≥ 35 °C"},
+          {"field": "days_40plus", "type": "quantitative", "title": "Days ≥ 40 °C"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 90, "color": "#7f1d1d"},
+      "encoding": {
+        "y": {"field": "days_40plus", "type": "quantitative"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.days_35plus > 0"}],
+      "mark": {"type": "text", "fontSize": 10, "color": "#1a1a1a", "fontWeight": "bold", "dy": -14},
+      "encoding": {
+        "y": {"field": "days_35plus", "type": "quantitative"},
+        "text": {"field": "days_35plus", "type": "quantitative"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year == 2019"}],
+      "mark": {"type": "point", "size": 360, "color": "#7f1d1d", "strokeWidth": 2.5, "fill": "#fafaf7"},
+      "encoding": {"y": {"field": "days_35plus", "type": "quantitative"}}
+    },
+    {
+      "data": {
+        "values": [
+          {"x": 2019, "y": 18.5, "text": "2019: 17 days ≥35 °C, 7 of them ≥40 °C — record", "color": "#222", "align": "center"},
+          {"x": 2011, "y": 2.8, "text": "2011: only 1 day ≥35 °C (strong La Niña)", "color": "#1f6f3a", "align": "center"},
+          {"x": 2005.2, "y": 8.0, "text": "● ≥ 35 °C", "color": "#ee964b", "align": "left"},
+          {"x": 2005.2, "y": 6.6, "text": "● ≥ 40 °C", "color": "#7f1d1d", "align": "left"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11, "fontStyle": "italic"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"},
+        "color": {"field": "color", "type": "nominal", "scale": null, "legend": null},
+        "align": {"field": "align", "type": "nominal", "scale": null, "legend": null}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}

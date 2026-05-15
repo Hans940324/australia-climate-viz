@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 640,
+  "height": 540,
+  "background": "#fafaf7",
+  "projection": {"type": "mercator", "center": [134, -28], "scale": 700},
+  "layer": [
+    {
+      "data": {
+        "url": "../data/states_real.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STATE_NAME",
+          "from": {
+            "data": {"url": "../data/state_temps_2024.csv"},
+            "key": "STATE_NAME",
+            "fields": ["annual_mean_c", "state"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "#fafaf7", "strokeWidth": 1},
+      "encoding": {
+        "color": {
+          "field": "annual_mean_c",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [14, 17, 19, 22, 25],
+            "range": ["#1d4877", "#5da9c4", "#f4d35e", "#ee964b", "#d7563d", "#7f1d1d"]
+          },
+          "legend": {
+            "title": "Annual mean (°C)",
+            "orient": "bottom-left",
+            "direction": "horizontal",
+            "gradientLength": 220,
+            "labelFontSize": 11,
+            "titleFontSize": 12
+          }
+        },
+        "tooltip": [
+          {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+          {"field": "annual_mean_c", "type": "quantitative", "title": "Annual mean (°C)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "WA", "lon": 122.0, "lat": -25.5, "v": 19.8},
+          {"state": "NT", "lon": 133.5, "lat": -19.5, "v": 27.9},
+          {"state": "SA", "lon": 135.0, "lat": -30.0, "v": 16.6},
+          {"state": "QLD", "lon": 144.0, "lat": -22.0, "v": 20.9},
+          {"state": "NSW", "lon": 147.0, "lat": -32.5, "v": 18.0},
+          {"state": "VIC", "lon": 145.0, "lat": -37.0, "v": 15.2},
+          {"state": "TAS", "lon": 146.7, "lat": -42.2, "v": 13.3}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 13, "fontWeight": "bold", "color": "#1a1a1a", "align": "center"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "WA", "lon": 122.0, "lat": -27.0, "label": "19.8 °C"},
+          {"state": "NT", "lon": 133.5, "lat": -21.0, "label": "27.9 °C"},
+          {"state": "SA", "lon": 135.0, "lat": -31.5, "label": "16.6 °C"},
+          {"state": "QLD", "lon": 144.0, "lat": -23.5, "label": "20.9 °C"},
+          {"state": "NSW", "lon": 147.0, "lat": -34.0, "label": "18.0 °C"},
+          {"state": "VIC", "lon": 145.0, "lat": -38.5, "label": "15.2 °C"},
+          {"state": "TAS", "lon": 146.7, "lat": -43.5, "label": "13.3 °C"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11, "color": "#333", "align": "center"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif"
+  }
+}

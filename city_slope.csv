@@ -1,0 +1,17 @@
+city,period,tmean
+Darwin,2005-2009,27.47
+Darwin,2020-2024,27.73
+Brisbane,2005-2009,20.52
+Brisbane,2020-2024,20.49
+Perth,2005-2009,18.71
+Perth,2020-2024,19.0
+Sydney,2005-2009,17.73
+Sydney,2020-2024,17.55
+Adelaide,2005-2009,16.73
+Adelaide,2020-2024,16.24
+Canberra,2005-2009,13.27
+Canberra,2020-2024,13.22
+Melbourne,2005-2009,15.12
+Melbourne,2020-2024,14.74
+Hobart,2005-2009,12.55
+Hobart,2020-2024,12.73

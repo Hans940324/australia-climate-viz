@@ -1,0 +1,71 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 680,
+  "height": 380,
+  "background": "#fafaf7",
+  "data": {"url": "../data/state_rainfall_season.csv"},
+  "encoding": {
+    "x": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "sort": ["TAS", "VIC", "ACT", "QLD", "NSW", "NT", "WA", "SA"],
+      "axis": {"labelFontSize": 13, "labelFontWeight": "bold", "labelAngle": 0, "labelPadding": 6}
+    },
+    "y": {
+      "field": "rainfall_mm",
+      "type": "quantitative",
+      "title": "Annual rainfall (mm)",
+      "stack": "zero",
+      "axis": {"labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#eee"}
+    },
+    "color": {
+      "field": "season",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Summer half (Nov-Apr)", "Winter half (May-Oct)"],
+        "range": ["#2e7fb8", "#f4a261"]
+      },
+      "legend": {"title": "Half-year", "orient": "top-right", "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "order": {"field": "season_order", "type": "ordinal"}
+  },
+  "transform": [
+    {"calculate": "datum.season === 'Summer half (Nov-Apr)' ? 0 : 1", "as": "season_order"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar", "size": 56},
+      "encoding": {
+        "tooltip": [
+          {"field": "state_name", "type": "nominal", "title": "State"},
+          {"field": "season", "type": "nominal"},
+          {"field": "rainfall_mm", "type": "quantitative", "title": "Rainfall (mm)"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize": 10, "color": "white", "fontWeight": "bold"},
+      "encoding": {
+        "text": {"field": "rainfall_mm", "type": "quantitative"},
+        "y": {"field": "rainfall_mm", "aggregate": "sum", "stack": "zero", "bandPosition": 0.5}
+      }
+    },
+    {
+      "transform": [
+        {"aggregate": [{"op": "sum", "field": "rainfall_mm", "as": "total"}], "groupby": ["state"]}
+      ],
+      "mark": {"type": "text", "fontSize": 11, "color": "#222", "fontWeight": "bold", "dy": -8},
+      "encoding": {
+        "text": {"field": "total", "type": "quantitative", "format": "d"},
+        "y": {"field": "total", "type": "quantitative"},
+        "color": {"value": "#222"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}

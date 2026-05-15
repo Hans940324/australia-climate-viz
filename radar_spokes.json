@@ -1,0 +1,1 @@
+[{"axis": "Warmth (\u00b0C)", "order": 0, "x": 0.0, "y": 1.0}, {"axis": "Sunshine (hr/day)", "order": 1, "x": 0.9511, "y": 0.309}, {"axis": "Rainfall (mm/yr)", "order": 2, "x": 0.5878, "y": -0.809}, {"axis": "Wind (km/h)", "order": 3, "x": -0.5878, "y": -0.809}, {"axis": "Humidity (%)", "order": 4, "x": -0.9511, "y": 0.309}]

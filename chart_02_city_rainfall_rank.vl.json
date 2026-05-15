@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 640,
+  "height": 360,
+  "background": "#fafaf7",
+  "data": {"url": "../data/city_annual_rain.csv"},
+  "layer": [
+    {
+      "mark": {"type": "bar", "size": 26, "cornerRadiusEnd": 4},
+      "encoding": {
+        "y": {
+          "field": "city",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null,
+          "axis": {"labelFontSize": 13, "labelFontWeight": "bold", "labelPadding": 6}
+        },
+        "x": {
+          "field": "annual_rain",
+          "type": "quantitative",
+          "title": "Mean annual rainfall (mm), 2005-2024",
+          "scale": {"domain": [0, 2000]},
+          "axis": {"labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#eee"}
+        },
+        "color": {
+          "field": "annual_rain",
+          "type": "quantitative",
+          "scale": {"scheme": "blues", "domain": [400, 1900]},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "city", "type": "nominal"},
+          {"field": "annual_rain", "type": "quantitative", "title": "Annual rainfall (mm)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize": 12, "fontWeight": "bold", "color": "#1a1a1a", "align": "left", "dx": 6},
+      "encoding": {
+        "y": {"field": "city", "type": "nominal", "sort": "-x"},
+        "x": {"field": "annual_rain", "type": "quantitative"},
+        "text": {"field": "annual_rain", "type": "quantitative", "format": ",.0f"}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}

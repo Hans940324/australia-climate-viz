@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 560,
+  "height": 560,
+  "background": "#fafaf7",
+  "padding": 60,
+  "layer": [
+    {
+      "data": {"url": "../data/radar_grid.json"},
+      "mark": {"type": "line", "color": "#d0d0c5", "size": 1, "opacity": 0.85},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "detail": {"field": "level", "type": "quantitative"},
+        "order": {"field": "order", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {"url": "../data/radar_spokes.json"},
+      "transform": [{"calculate": "0", "as": "zero"}],
+      "mark": {"type": "rule", "color": "#bbb", "size": 1, "opacity": 0.7},
+      "encoding": {
+        "x": {"field": "zero", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "zero", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "x2": {"field": "x"},
+        "y2": {"field": "y"}
+      }
+    },
+    {
+      "data": {"url": "../data/city_radar_closed.csv"},
+      "mark": {"type": "line", "fillOpacity": 0.18, "strokeWidth": 2.5, "filled": true},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "color": {
+          "field": "city",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Darwin","Brisbane","Melbourne","Hobart"],
+            "range": ["#d7563d","#ee964b","#3a7bc4","#1d4877"]
+          },
+          "legend": null
+        },
+        "order": {"field": "order", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {"url": "../data/city_radar.csv"},
+      "mark": {"type": "point", "filled": true, "size": 90, "stroke": "#fafaf7", "strokeWidth": 1.5},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "color": {
+          "field": "city",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Darwin","Brisbane","Melbourne","Hobart"],
+            "range": ["#d7563d","#ee964b","#3a7bc4","#1d4877"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "city", "type": "nominal"},
+          {"field": "axis", "type": "nominal"},
+          {"field": "r_raw", "type": "quantitative", "title": "Value"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "../data/radar_labels.json"},
+      "mark": {"type": "text", "fontSize": 12, "fontWeight": "bold", "color": "#1a1a1a"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "text": {"field": "axis", "type": "nominal"}
+      }
+    },
+    {
+      "data": {"url": "../data/radar_city_labels.json"},
+      "mark": {"type": "text", "fontSize": 14, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [-1.4, 1.4]}, "axis": null},
+        "text": {"field": "city", "type": "nominal"},
+        "color": {
+          "field": "city",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Darwin","Brisbane","Melbourne","Hobart"],
+            "range": ["#d7563d","#ee964b","#3a7bc4","#1d4877"]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 360,
+  "background": "#fafaf7",
+  "data": {"url": "../data/melb_summer_max.csv"},
+  "encoding": {
+    "x": {
+      "field": "year_label",
+      "type": "quantitative",
+      "title": "Summer ending in year",
+      "scale": {"domain": [2005, 2026], "nice": false},
+      "axis": {"format": "d", "tickCount": 11, "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "y": {
+      "field": "mean_max_c",
+      "type": "quantitative",
+      "title": "Mean daily maximum (°C)",
+      "scale": {"domain": [23, 28], "zero": false, "nice": false},
+      "axis": {"labelFontSize": 11, "titleFontSize": 12, "format": ".1f"}
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#bbb", "strokeDash": [3, 3]},
+      "encoding": {
+        "y": {"datum": 25.39, "scale": {"domain": [23, 28], "zero": false}}
+      }
+    },
+    {
+      "transform": [{"regression": "mean_max_c", "on": "year_label"}],
+      "mark": {"type": "line", "color": "#d7563d", "strokeDash": [6, 4], "size": 2.5, "opacity": 0.85}
+    },
+    {
+      "mark": {"type": "line", "color": "#1d4877", "size": 2, "interpolate": "monotone", "opacity": 0.6}
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 90, "color": "#1d4877"},
+      "encoding": {
+        "tooltip": [
+          {"field": "summer", "type": "nominal", "title": "Summer"},
+          {"field": "mean_max_c", "type": "quantitative", "title": "Mean max (°C)", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year_label == 2019 || datum.year_label == 2025"}],
+      "mark": {"type": "point", "size": 220, "color": "#7f1d1d", "strokeWidth": 2.5, "fill": "#fafaf7"}
+    },
+    {
+      "transform": [{"filter": "datum.year_label == 2011 || datum.year_label == 2021"}],
+      "mark": {"type": "point", "size": 220, "color": "#1f6f3a", "strokeWidth": 2.5, "fill": "#fafaf7"}
+    },
+    {
+      "data": {
+        "values": [
+          {"x": 2019, "y": 27.5, "text": "2018-19: hottest in 20 yr (26.98 °C)", "color": "#7f1d1d"},
+          {"x": 2025, "y": 27.3, "text": "2024-25 (26.70 °C)", "color": "#7f1d1d"},
+          {"x": 2011, "y": 23.2, "text": "2010-11: strong La Niña (23.53 °C)", "color": "#1f6f3a"},
+          {"x": 2021, "y": 23.2, "text": "2020-21 La Niña (23.70 °C)", "color": "#1f6f3a"},
+          {"x": 2023.5, "y": 26.2, "text": "Trend ≈ +0.01 °C / yr", "color": "#d7563d"},
+          {"x": 2007, "y": 25.6, "text": "20-yr mean 25.4 °C", "color": "#888"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11, "align": "center", "fontStyle": "italic"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"},
+        "color": {"field": "color", "type": "nominal", "scale": null, "legend": null}
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"grid": true, "gridColor": "#eee", "domainColor": "#888", "tickColor": "#888"}
+  }
+}

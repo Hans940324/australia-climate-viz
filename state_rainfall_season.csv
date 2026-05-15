@@ -1,0 +1,17 @@
+state,state_name,city,season,rainfall_mm
+NSW,New South Wales,Sydney,Summer half (Nov-Apr),502
+NSW,New South Wales,Sydney,Winter half (May-Oct),314
+VIC,Victoria,Melbourne,Summer half (Nov-Apr),325
+VIC,Victoria,Melbourne,Winter half (May-Oct),331
+QLD,Queensland,Brisbane,Summer half (Nov-Apr),661
+QLD,Queensland,Brisbane,Winter half (May-Oct),322
+WA,Western Australia,Perth,Summer half (Nov-Apr),129
+WA,Western Australia,Perth,Winter half (May-Oct),444
+SA,South Australia,Adelaide,Summer half (Nov-Apr),176
+SA,South Australia,Adelaide,Winter half (May-Oct),348
+TAS,Tasmania,Hobart,Summer half (Nov-Apr),311
+TAS,Tasmania,Hobart,Winter half (May-Oct),333
+NT,Northern Territory,Darwin,Summer half (Nov-Apr),1715
+NT,Northern Territory,Darwin,Winter half (May-Oct),120
+ACT,Australian Capital Territory,Canberra,Summer half (Nov-Apr),341
+ACT,Australian Capital Territory,Canberra,Winter half (May-Oct),275
