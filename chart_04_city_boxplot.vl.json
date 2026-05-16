@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 420,
+  "background": "#fafaf7",
+  "data": {"url": "../data/city_monthly_tmax.csv"},
+  "mark": {"type": "boxplot", "extent": 1.5, "size": 38, "median": {"color": "#1a1a1a", "size": 2.5}},
+  "encoding": {
+    "x": {
+      "field": "city",
+      "type": "nominal",
+      "title": null,
+      "sort": ["Darwin","Brisbane","Perth","Sydney","Adelaide","Canberra","Melbourne","Hobart"],
+      "axis": {"labelFontSize": 12, "labelFontWeight": "bold", "labelAngle": 0, "labelPadding": 6}
+    },
+    "y": {
+      "field": "monthly_tmax",
+      "type": "quantitative",
+      "title": "Monthly mean of daily maximum temperature (°C)",
+      "scale": {"domain": [5, 38], "zero": false},
+      "axis": {"labelFontSize": 11, "titleFontSize": 12, "grid": true, "gridColor": "#eee"}
+    },
+    "color": {
+      "field": "city",
+      "type": "nominal",
+      "sort": ["Darwin","Brisbane","Perth","Sydney","Adelaide","Canberra","Melbourne","Hobart"],
+      "scale": {"range": ["#7f1d1d","#d7563d","#ee964b","#f4d35e","#a3c25e","#5da9c4","#3a7bc4","#1d4877"]},
+      "legend": null
+    }
+  },
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}

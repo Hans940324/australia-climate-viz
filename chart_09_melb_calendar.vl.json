@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 540,
+  "height": 460,
+  "background": "#fafaf7",
+  "data": {"url": "../data/melb_2024_daily.csv"},
+  "mark": {"type": "rect", "stroke": "#fafaf7", "strokeWidth": 1.5},
+  "encoding": {
+    "x": {
+      "field": "month_name",
+      "type": "ordinal",
+      "sort": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+      "title": null,
+      "axis": {"orient": "top", "labelFontSize": 12, "labelFontWeight": "bold", "labelAngle": 0, "labelPadding": 6}
+    },
+    "y": {
+      "field": "day",
+      "type": "ordinal",
+      "title": "Day of month",
+      "sort": "ascending",
+      "axis": {"labelFontSize": 10, "titleFontSize": 12, "labelOverlap": false, "values": [1,5,10,15,20,25,31]}
+    },
+    "color": {
+      "field": "tmax",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "yelloworangered",
+        "domain": [10, 42]
+      },
+      "legend": {
+        "title": "Daily Tmax (°C)",
+        "orient": "bottom",
+        "direction": "horizontal",
+        "gradientLength": 240,
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
+    },
+    "tooltip": [
+      {"field": "date", "type": "nominal", "title": "Date"},
+      {"field": "tmax", "type": "quantitative", "title": "Max temp (°C)", "format": ".1f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": null},
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {"domainColor": "#888", "tickColor": "#888"}
+  }
+}

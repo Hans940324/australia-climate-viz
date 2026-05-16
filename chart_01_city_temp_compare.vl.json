@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 380,
+  "background": "#fafaf7",
+  "data": {
+    "url": "../data/city_tmean_compare.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "size": 22
+  },
+  "encoding": {
+    "x": {
+      "field": "city",
+      "type": "nominal",
+      "sort": [
+        "Darwin",
+        "Brisbane",
+        "Perth",
+        "Sydney",
+        "Adelaide",
+        "Melbourne",
+        "Canberra",
+        "Hobart"
+      ],
+      "title": null,
+      "axis": {
+        "labelFontSize": 12,
+        "labelFontWeight": "bold",
+        "labelAngle": 0,
+        "labelPadding": 6
+      }
+    },
+    "xOffset": {
+      "field": "period",
+      "sort": [
+        "20-yr avg (2005-2024)",
+        "2024"
+      ],
+      "type": "nominal"
+    },
+    "y": {
+      "field": "tmean",
+      "type": "quantitative",
+      "title": "Annual mean temperature (°C)",
+      "scale": {
+        "domain": [
+          0,
+          30
+        ]
+      },
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "grid": true,
+        "gridColor": "#eee"
+      }
+    },
+    "color": {
+      "field": "period",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "20-yr avg (2005-2024)",
+          "2024"
+        ],
+        "range": [
+          "#9aa5b1",
+          "#d7563d"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "top-right",
+        "labelFontSize": 12,
+        "symbolSize": 200
+      }
+    },
+    "tooltip": [
+      {
+        "field": "city",
+        "type": "nominal"
+      },
+      {
+        "field": "period",
+        "type": "nominal"
+      },
+      {
+        "field": "tmean",
+        "type": "quantitative",
+        "title": "Mean (°C)",
+        "format": ".2f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "system-ui, -apple-system, Segoe UI, sans-serif",
+    "axis": {
+      "domainColor": "#888",
+      "tickColor": "#888"
+    }
+  }
+}
